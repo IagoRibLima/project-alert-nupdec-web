@@ -4,9 +4,21 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule, JwtAuthGuard } from './auth';
 import { SensorsModule } from './sensors/sensors.module';
+import { AlertasModule } from './alertas/alertas.module';
+import { UsuariosModule } from './usuarios/usuarios.module';
+import { AreasRiscoModule } from './areas-risco/areas-risco.module';
+import { DicasModule } from './dicas/dicas.module';
+import { TreinamentosModule } from './treinamentos/treinamentos.module';
 
 @Module({
-  imports: [AuthModule, SensorsModule],
+  imports: [
+    AuthModule, 
+    SensorsModule, 
+    AlertasModule, 
+    UsuariosModule, 
+    AreasRiscoModule, 
+    DicasModule, 
+    TreinamentosModule],
   controllers: [AppController],
   providers: [
     AppService,
