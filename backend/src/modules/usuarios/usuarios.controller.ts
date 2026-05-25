@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, NotFoundException } from '@nestjs/common';
 import { UsuariosService } from './usuarios.service';
-import { CriarUsuarioDto } from './dto/criar-usuario.dto';
-import * as usuarioInterface from './interfaces/usuario.interface';
+import { CriarUsuarioDto } from '../../dto/criar-usuario.dto';
+import * as usuarioInterface from '../../interfaces/usuario.interface';
 
 @Controller('usuarios')
 export class UsuariosController {

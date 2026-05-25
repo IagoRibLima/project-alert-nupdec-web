@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { AreasRiscoService } from './areas-risco.service';
-import { CriarAreaDto } from './dto/criar-area.dto';
-import * as areaInterface from './interfaces/area.interface';
+import { CriarAreaDto } from '../../dto/criar-area.dto';
+import * as areaInterface from '../../interfaces/area.interface';
 
 @Controller('areas-risco')
 export class AreasRiscoController {

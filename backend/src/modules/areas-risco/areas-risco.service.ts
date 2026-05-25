@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Area } from './interfaces/area.interface';
-import { CriarAreaDto } from './dto/criar-area.dto';
+import { Area } from '../../interfaces/area.interface';
+import { CriarAreaDto } from '../../dto/criar-area.dto';
 
 @Injectable()
 export class AreasRiscoService {
