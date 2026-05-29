@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { AlertasService } from './alertas.service';
-import { CriarAlertaDto } from '../../dto/criar-alerta.dto';
-import { Alerta } from '../../interfaces/alerta.interface';
+import { CriarAlertaDto } from './dto/criar-alerta.dto';
+import { Alerta } from './interface/alerta.interface';
 
 @Controller('alertas')
 export class AlertasController {

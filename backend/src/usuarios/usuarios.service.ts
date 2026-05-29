@@ -1,6 +1,6 @@
 import { Injectable, ConflictException, NotFoundException } from '@nestjs/common';
-import { Usuario } from '../../interfaces/usuario.interface';
-import { CriarUsuarioDto } from '../../dto/criar-usuario.dto';
+import { Usuario } from './interface/usuario.interface';
+import { CriarUsuarioDto } from './dto/criar-usuario.dto';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()

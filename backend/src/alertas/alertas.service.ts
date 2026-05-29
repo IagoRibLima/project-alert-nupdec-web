@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Alerta } from '../../interfaces/alerta.interface';
-import { CriarAlertaDto } from '../../dto/criar-alerta.dto';
+import { Alerta } from './interface/alerta.interface';
+import { CriarAlertaDto } from './dto/criar-alerta.dto';
 
 @Injectable()
 export class AlertasService {
