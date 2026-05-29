@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: alert-nupdec-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: nupdec_user
+      POSTGRES_PASSWORD: nupdec123
+      POSTGRES_DB: nupdec_db
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql
+
+volumes:
+  pgdata:
