@@ -6,7 +6,6 @@ import {
   HttpCode,
   Post,
 } from '@nestjs/common';
-import { Public } from '../auth';
 import { SensorsService } from './sensors.service';
 
 @Controller('sensors')
@@ -15,7 +14,6 @@ export class SensorsController {
 
   @Post('agua')
   @HttpCode(200)
-  @Public()
   recordWaterLevel(@Body('value') value: unknown) {
     if (value === undefined || value === null) {
       throw new BadRequestException(
@@ -33,7 +31,6 @@ export class SensorsController {
   }
 
   @Get('status')
-  @Public()
   getStatus() {
     return {
       message: 'API Alert Nupdec operante',
