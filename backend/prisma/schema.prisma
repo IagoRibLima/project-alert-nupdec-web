@@ -1,0 +1,141 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"  
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ------------------------------------------------------
+// TABELAS DE DOMÍNIO / APOIO
+// ------------------------------------------------------
+
+model Cargo {
+  idCargo  Int       @id @default(autoincrement())
+  tipo     String
+
+  // Relacionamento (1:N)
+  usuarios Usuario[]
+}
+
+model Categoria {
+  idCategoria Int      @id @default(autoincrement())
+  tipo        String
+
+  // Relacionamento (1:N)
+  alertas     Alerta[]
+}
+
+model Endereco {
+  idEndereco      Int               @id @default(autoincrement())
+  cep             String
+  rua             String
+  bairro          String
+
+  // Relacionamentos (1:N)
+  usuarioEndereco usuarioEndereco[]
+  areaRisco       areaRisco[]
+}
+
+model Sensor {
+  idSensor        Int         @id @default(autoincrement())
+  descricao       String
+  dtImplementacao DateTime    @default(now())
+
+  // Relacionamentos (1:N)
+  leituras        Leituras[]
+  areasRisco      areaRisco[]
+}
+
+// ------------------------------------------------------
+// ENTIDADES PRINCIPAIS
+// ------------------------------------------------------
+
+model Usuario {
+  idUsuario  Int      @id @default(autoincrement())
+  nome       String
+  cpf        String   @unique
+  dtCadastro DateTime @default(now())
+  email      String   @unique
+  senhaHash  String
+  
+  // Chaves Estrangeiras
+  idCargo    Int
+  idArea     Int
+
+  // Relacionamentos
+  cargo           Cargo             @relation(fields: [idCargo], references: [idCargo])
+  areaRisco       areaRisco         @relation(fields: [idArea], references: [idArea])
+  usuarioEndereco usuarioEndereco[]
+}
+
+model usuarioEndereco {
+  idUsuarioEndereco Int     @id @default(autoincrement())
+  
+  // Chaves Estrangeiras
+  idUsuario         Int
+  idEndereco        Int
+  
+  numero            String
+  descricao         String?
+
+  // Relacionamentos
+  usuario           Usuario  @relation(fields: [idUsuario], references: [idUsuario])
+  endereco          Endereco @relation(fields: [idEndereco], references: [idEndereco])
+}
+
+model areaRisco {
+  idArea     Int      @id @default(autoincrement())
+  descricao  String
+  dtArea     DateTime @default(now())
+  
+  // Chaves Estrangeiras
+  idSensor   Int?     
+  idEndereco Int
+
+  // Relacionamentos
+  sensor     Sensor?   @relation(fields: [idSensor], references: [idSensor])
+  endereco   Endereco  @relation(fields: [idEndereco], references: [idEndereco])
+  usuarios   Usuario[]
+  alertas    Alerta[]
+}
+
+model Leituras {
+  idLeitura Int      @id @default(autoincrement())
+  dados     Int   
+  data      DateTime @default(now())
+  
+  // Chaves Estrangeiras
+  idSensor  Int
+
+  // Relacionamentos
+  sensor    Sensor   @relation(fields: [idSensor], references: [idSensor])
+}
+
+model Alerta {
+  idAlerta    Int      @id @default(autoincrement())
+  descricao   String   @db.Text
+  dtAlerta    DateTime @default(now())
+  imagem      String?  
+  
+  // Chaves Estrangeiras
+  idCategoria Int
+  idArea      Int
+  status      StatusAlerta @default(PENDENTE)
+
+  // Relacionamentos
+  categoria   Categoria @relation(fields: [idCategoria], references: [idCategoria])
+  areaRisco   areaRisco @relation(fields: [idArea], references: [idArea])
+}
+
+enum StatusAlerta {
+  PENDENTE
+  APROVADO
+  REJEITADO
+}
